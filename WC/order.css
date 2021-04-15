@@ -1,0 +1,24 @@
+.content {
+  display: flex;
+  flex-direction: row;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  max-width: fit-content;
+  background-color: #eee;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.orderview {
+  margin: 30px;
+  width: 320px;
+  height: 320px;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+}

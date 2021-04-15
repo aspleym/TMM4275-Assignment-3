@@ -1,0 +1,25 @@
+#! NX/KF 4.0
+DefClass:<T_NAME> (%ug_create_instance ug_base_part);
+# Set of default parameters for the part
+
+# Point(x, y, z)
+(List) blocks: {
+<POINTS>
+};
+
+(List) children: children() + {list1:};
+
+
+(List) list1: loop
+{
+  for $i from 1 to length(blocks:);
+    append {ug_createInstance(
+        {
+            class,      ug_block;
+            length,     1;
+            width,      1;
+            height,     5;
+            Origin,     nth($i, points:);
+        }
+    )};
+};
