@@ -3,8 +3,7 @@
 [![](https://img.shields.io/badge/HTML5-a?style=flat&logo=html5&label=Code&color=E34F26&logoColor=ffffff)](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5)
 [![](https://img.shields.io/badge/JavaScript-a?style=flat&logo=javascript&label=Code&color=F7DF1E&logoColor=ffffff)](https://www.javascript.com/)
 [![](https://img.shields.io/badge/Python-a?style=flat&logo=python&label=Code&color=3776AB&logoColor=ffffff)](https://www.python.org/)
-[![](https://img.shields.io/badge/CSS3-a?style=flat&logo=css3&label=Code&color=1572B6&logoColor=ffffff)](https://developer.mozilla.org/en-US/docs/Archive/CSS3)
-[![](https://img.shields.io/badge/Code-Json-informational?style=flat&logo=json&logoColor=white&color=000000)](https://www.json.org/json-en.html)  
+[![](https://img.shields.io/badge/CSS3-a?style=flat&logo=css3&label=Code&color=1572B6&logoColor=ffffff)](https://developer.mozilla.org/en-US/docs/Archive/CSS3)  
 [![](https://img.shields.io/badge/VSCode-a?style=flat&logo=visual-studio-code&label=Editor&color=007ACC)](https://code.visualstudio.com/)
 [![](https://img.shields.io/badge/NX-a?style=flat&logo=siemens&label=CAD&color=009999&logoColor=ffffff)](https://www.plm.automation.siemens.com/global/en/products/nx/)  
 ![](https://img.shields.io/maintenance/no/2021)
@@ -30,11 +29,12 @@
 
 ## Task
 
-CAD-based (robot trajectory) potential weld lines generation.
+TODO: Add an introduction to the final task, what we decided to change, why etc.
 
-A welding robot has to weld walls to the base plane. Walls can be seen as a maze. The target is to find  
-all the edges connecting walls to the base plane. Having a maze-like structure, develop a
-KBE solution to generate potential welding lines.
+Weldability check.
+
+A welding robot has to weld walls to the base plane. Walls can be seen as a maze. The target is to find 
+and show all the volumes where the welding gun can fit.
 
 ## Sketch and diagrams
 
@@ -56,34 +56,20 @@ Everyone that contributed to the project used [Visual Studio Code](https://code.
 
 ### Libraries
 
-- [Three.js](https://threejs.org/)
 - [http.server](https://docs.python.org/3/library/http.server.html)
 - [socketserver](https://docs.python.org/3/library/socketserver.html)
 - [Requests](https://requests.readthedocs.io/en/master/)
 - [os](https://docs.python.org/3/library/os.html)
-- [json](https://docs.python.org/3/library/json.html)
-- [pandas](https://pandas.pydata.org/)
 
-### Trajectory Algorithm
+### Face detection Algorithm
+TODO: Write a explenation on how it works
 
-<img align="right" src="https://camo.githubusercontent.com/7ea38bf594e2982a200d937c69bee021d603d810d9b9187230faa0f43ccf25ee/687474703a2f2f7265732e636c6f7564696e6172792e636f6d2f647172326d656a68632f696d6167652f75706c6f61642f76313530313336303734362f6266735f7373776d657a2e676966">
-To solve the trajectory problem, we decided early on to use one of the well known pathfinding algorithms. They usualy have a known target from the beginning,
-and finds a path to the target. For this problem, our target were every side of a wall. We decided to use a Breadth-first search algorithm, since it wasn't depending on
-searching for a specific target. Since we already needed to check every position in the maze, we could easly use this algorithm to find the closest wall that needed to 
-be welded. Further the algorithm kept continously weld lines around the maze until it had welded every edge of the wall. Some walls were not connected to the previous wall, therefor the algorithm would search for other walls that were reachable and not welded to the base plane.
 
 ## Getting Started
 
 ### Prerequisites
 
-To run this project you would need to install [Python 3.9](https://www.python.org/) to run the website and [Java](https://www.java.com/en/) if you want to run the Fuseki server with Java.
-There is also a need for a Python library to be installed, [Pandas](https://pandas.pydata.org/).
-
-Pandas can easly be installed via pip for PyPi. Open Command prompt or a Terminal and type in the following:
-
-```sh
-pip install pandas
-```
+To run this project you would need to install [Python 3.9](https://www.python.org/) to run the website.
 
 ### Download project
 
@@ -91,8 +77,8 @@ This section will guide you to clone this git repository. Type the following lin
 
 ```sh
 cd /to-your-desired-directory
-git clone https://github.com/aspleym/TMM4275-Assignment-2.git
-cd TMM4275-Assignment-2
+git clone https://github.com/aspleym/TMM4275-Assignment-3.git
+cd TMM4275-Assignment-3
 ```
 
 You are now inside the project folder.
@@ -102,23 +88,6 @@ Type `ls` in the terminal to see the root folder structure.
 ### Run the system
 
 In this section you will be guided step by step on how to run the system on your computer.
-
-#### Fuseki server
-
-- Go to the directory of the project
-- Enter the directory for the Fuseki server, `Fuseki`.
-- Execute one of the fuseki-server files depending on your operating system:
-  - fuseki-server `UNIX`
-  - fuseki-server.bat `WINDOWS`
-  - fuseki-server.jar `JAVA`
-
-#### Adding OWL model
-
-- To add the OWL model to the server, open a web browser and type in the following un the URL field: `127.0.0.1:3030`.
-- Locate the dataset named /kbe: `http://127.0.0.1:3030/dataset.html`
-- Select the tab _upload files_ and then hit the button _+ select files..._ to add the OWL-model to the Fuseki server.
-  - The owl file should be: `project-directory/OWL/shapes.owl`
-- Press the button _upload all_ and verify that the upload was successful.
 
 #### Web server
 
@@ -141,33 +110,17 @@ python httpserver.py
 
 ## Usage
 
-The website _Wall-E_ is able to read imported csv-files made by a user, or use premade templates of different complexities, to load a Maze.
-
-If the user imports a csv-file, the file will be stored on the server. The premade templates are already stored on the server.
-
-A preview of the loaded maze will be presented in the preview box to the right using *three.js* library.
-
-When the user clicks _Generate Trajectory_ the page will generate a welding trajectory for the given maze. The trajectory will be stored on the fuseki server.
-
-A DFA generator will read the trajectory from the fuseki server and make a DFA-file displaying the trajectory and the maze.
-
-The user will be redirected to _order.html_ where it is possible to download the generated DFA-file
+TODO: Write how to use, from the sender, and for the designer. Run on NX, automatic email etc.
 
 ### Create your own maze
 
-- Open the excel document located at `Maze/Template.xlsx`.
-- 1 represents open areas, while -1 represent walls.
-- These numbers can be changed to make your own maze.
-- If you highlight a cell, and drag the small square in the bottom right corner, the number in the cell will be copied to the area you drag it over. This can be used to quickly create or remove walls.
-- NOTE: cell (0,0) must be 1 as the pathfinding algorithm starts in this corner. If you block this square, the algorithm will not find a trajectory.
-- When you are done, select _save as_ and choose _.csv_ as file type. Quickly open the file in notepad and make sure the numbers are seperated with semicolons `;`.
-- This file can now be imported to Wall-E.
+TODO: Rules for how the .prt - file should be for the algorithm to work.
 
 ## Examples
 
-You can try out a demo of this project [here!](https://walle.magnusolstad.no)
+You can try out a demo of this project [here!](https://wc.magnusolstad.no)
 
-### Maze and trajectory examples (Templates)
+### Weldability check examples (Templates)
 
 |                                        Low                                        |                                        Medium                                        |                                        High                                        |                                        Extreme                                        |
 | :-------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------: |
@@ -179,30 +132,7 @@ You can try out a demo of this project [here!](https://walle.magnusolstad.no)
 
 ## Roadmap
 
-We were not able to complete all of our goals for this project because of the limited time and other school tasks.  
-There were some parts of the project we wished to improve upon. We will list them down here for other people to have an idea of what to do next. We aim to implement some of these features in assignment 3.
-
-#### Website:
-
-- Users should be able to input the dimensions for the "maze".
-- Reduce possible bugs with wrong inputs. Import file etc.
-- A preview of the trajectory using three.js.
-- Option to export random generated mazes.
-
-#### Python:
-
-- Generate random mazes with different complexities.
-
-#### Fuseki:
-
-- Store maze in Fuseki. As of now we read a uploaded csv-file.
-
-#### NX:
-
-- Change color on the trajectory depending on whether or not the welding robot is welding, or just moving. This information can already be returned from the pathfinding algorithm.
-- Improve DFA file to optimize construction time in NX.
-
-We have no further plans for this school project. Until there are changes to our roadmap, this project will have no maintenance of the code as of 26. Mars 2021.
+TODO: Last task, what we wished we could have done.
 
 ## File structure
 
