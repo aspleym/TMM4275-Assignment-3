@@ -15,7 +15,7 @@
 - [Sketch and diagrams](#sketch-and-diagrams)
 - [Built With](#built-with)
   - [Libraries](#libraries)
-  - [Trajectory Algorithm](#trajectory-algorithm)
+  - [Face detection Algorithm](#face-detection-algorithm)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Download project](#download-project)
