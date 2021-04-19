@@ -5,10 +5,7 @@
 [![](https://img.shields.io/badge/Python-a?style=flat&logo=python&label=Code&color=3776AB&logoColor=ffffff)](https://www.python.org/)
 [![](https://img.shields.io/badge/CSS3-a?style=flat&logo=css3&label=Code&color=1572B6&logoColor=ffffff)](https://developer.mozilla.org/en-US/docs/Archive/CSS3)
 [![](https://img.shields.io/badge/Code-Json-informational?style=flat&logo=json&logoColor=white&color=000000)](https://www.json.org/json-en.html)  
-[![](https://img.shields.io/badge/VSCode-a?style=flat&logo=visual-studio-code&label=Editor&color=007ACC)](https://code.visualstudio.com/)
-[![](https://img.shields.io/badge/Excel-a?style=flat&logo=microsoft-excel&label=Utility&color=217346&logoColor=ffffff)](https://www.microsoft.com/en-ww/microsoft-365/excel)
-[![](https://img.shields.io/badge/Three.js-a?style=flat&logo=three.js&label=Library&color=000000&logoColor=ffffff)](https://threejs.org/)
-[![](https://img.shields.io/badge/Fuseki-a?style=flat&logo=apache&label=Server&color=D22128&logoColor=ffffff)](https://jena.apache.org/documentation/fuseki2/index.html)  
+[![](https://img.shields.io/badge/VSCode-a?style=flat&logo=visual-studio-code&label=Editor&color=007ACC)](https://code.visualstudio.com/)  
 ![](https://img.shields.io/maintenance/no/2021)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
