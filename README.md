@@ -71,7 +71,7 @@ Everyone that contributed to the project used [Visual Studio Code](https://code.
 - [smtplib](https://docs.python.org/3/library/smtplib.html)
 
 ### Face detection Algorithm
-TODO: Write a explenation on how it works
+TODO: Write a explenation on how it works, MAGNUUUUUUS
 
 
 ## Getting Started
