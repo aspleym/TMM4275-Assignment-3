@@ -5,7 +5,8 @@
 [![](https://img.shields.io/badge/Python-a?style=flat&logo=python&label=Code&color=3776AB&logoColor=ffffff)](https://www.python.org/)
 [![](https://img.shields.io/badge/CSS3-a?style=flat&logo=css3&label=Code&color=1572B6&logoColor=ffffff)](https://developer.mozilla.org/en-US/docs/Archive/CSS3)  
 [![](https://img.shields.io/badge/VSCode-a?style=flat&logo=visual-studio-code&label=Editor&color=007ACC)](https://code.visualstudio.com/)
-[![](https://img.shields.io/badge/NX-a?style=flat&logo=siemens&label=CAD&color=009999&logoColor=ffffff)](https://www.plm.automation.siemens.com/global/en/products/nx/)  
+[![](https://img.shields.io/badge/NX-a?style=flat&logo=siemens&label=CAD&color=009999&logoColor=ffffff)](https://www.plm.automation.siemens.com/global/en/products/nx/)
+[![](https://img.shields.io/badge/NXOpen-a?style=flat&label=Library&color=009999&logoColor=ffffff)](https://docs.plm.automation.siemens.com/data_services/resources/nx/11/nx_api/custom/en_US/nxopen_python_ref/index.html)  
 ![](https://img.shields.io/maintenance/no/2021)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
