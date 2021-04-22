@@ -28,13 +28,17 @@
 - [License](#license)
 
 ## Task
-
-TODO: Add an introduction to the final task, what we decided to change, why etc.
-
 Weldability check.
 
 A welding robot has to weld walls to the base plane. Walls can be seen as a maze. The target is to find 
 and show all the volumes where the welding gun can fit.
+
+From what we could understand from our class leactures, we misunderstood the previous task (CAD-based (robot trajectory) potential weld lines generation.).
+We did not implement a system that used *.prt*-files and [*NXOpen - Python*](https://docs.plm.automation.siemens.com/data_services/resources/nx/11/nx_api/custom/en_US/nxopen_python_ref/index.html).
+Instead we used a *.csv*-file to describe a maze structure, and created a *.dfa*-file that could be read in Siemens NX.
+
+Originally we wanted to build upon our previous task to extend the system, but decided to show that we can use *NXOpen* with *.prt*-files.
+We therefor needed to remove some of our functionalities for this task, e.g. previews, some automation and Fuseki-server.
 
 ## Sketch and diagrams
 
@@ -56,6 +60,7 @@ Everyone that contributed to the project used [Visual Studio Code](https://code.
 
 ### Libraries
 
+- [NXOpen - Python](https://docs.plm.automation.siemens.com/data_services/resources/nx/11/nx_api/custom/en_US/nxopen_python_ref/index.html)
 - [http.server](https://docs.python.org/3/library/http.server.html)
 - [socketserver](https://docs.python.org/3/library/socketserver.html)
 - [Requests](https://requests.readthedocs.io/en/master/)
