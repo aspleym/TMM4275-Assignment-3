@@ -34,11 +34,11 @@ Weldability check.
 A welding robot has to weld walls to the base plane. Walls can be seen as a maze. The target is to find 
 and show all the volumes where the welding gun can fit.
 
-From what we could understand from our class leactures, we misunderstood the previous task (CAD-based (robot trajectory) potential weld lines generation.).
+From what we could understand from our class lectures, we misunderstood our previous task (CAD-based (robot trajectory) potential weld lines generation.).
 We did not implement a system that used *.prt*-files and [*NXOpen - Python*](https://docs.plm.automation.siemens.com/data_services/resources/nx/11/nx_api/custom/en_US/nxopen_python_ref/index.html).
 Instead we used a *.csv*-file to describe a maze structure, and created a *.dfa*-file that could be read in Siemens NX.
 
-Originally we wanted to build upon our previous task to extend the system, but decided to show that we can use *NXOpen* with *.prt*-files.
+Originally we wanted to build upon our previous task to extend the system, but decided to show that we can use *NXOpen* with *.prt*-files since it is one of the courses competence requirements.
 We therefor needed to remove some of our functionalities for this task, e.g. previews, some automation and Fuseki-server.
 
 ## Sketch and diagrams
