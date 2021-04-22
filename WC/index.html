@@ -3,18 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="Wall-E/main.css" />
-    <title>Wall-E</title>
+    <link rel="stylesheet" href="WC/main.css" />
+    <title>WC</title>
   </head>
   <body>
-    <script type="module" src="Wall-E/js/index.js"></script>
+    <script type="module" src="WC/js/index.js"></script>
     <div>
       <div class="header">
         <div class="logo">
           <div
             style="
               background-color: #008cff;
-              width: 50px;
+              width: 65px;
               height: 45px;
               border-radius: 10px;
               display: flex;
@@ -22,10 +22,10 @@
               justify-content: center;
             "
           >
-            <h1 style="color: white">W</h1>
+            <h1 style="color: white">WC</h1>
           </div>
           <h2 style="text-align: left; color: #008cff; margin-left: 1vw">
-            Wall-E
+            Weldability Checker
           </h2>
         </div>
       </div>
@@ -33,17 +33,27 @@
         <div class="mainContent">
           <div id="dimensions" class="form" style="display: block">
             <form>
-              <label class="text" for="dCName">Dimensions [mm]:</label>
+              <label class="text" for="email">Email address:</label>
+              <div>
+              <input
+                  class="inputEmail"
+                  type="email"
+                  id="emailInput"
+                  name="emailInput"
+                  required
+                  placeholder="example@mail.com"
+                />
+              </div>
+              <label class="text" for="dCName">Welding gun dimensions (L x W x H) [mm]:</label>
               <div class="parameters">
                 <input
                   class="inputDim textInput"
                   type="number"
                   id="mLength"
                   name="mLength"
-                  value="100"
+                  value="50"
                   required
                   min="1"
-                  disabled
                 />
                 <label class="text">x</label>
                 <input
@@ -51,36 +61,30 @@
                   type="number"
                   id="mWidth"
                   name="mWidth"
-                  value="100"
+                  value="50"
                   required
                   min="1"
-                  disabled
+                />
+                <label class="text">x</label>
+                <input
+                  class="inputDim textInput"
+                  type="number"
+                  id="mHeight"
+                  name="mHeight"
+                  value="50"
+                  required
+                  min="1"
                 />
               </div>
-
-              <label class="text" for="dCName">Select a predefiend maze:</label>
-              <div class="btn-group">
-                <div id="low-btn">Low</div>
-                <div id="medium-btn">Medium</div>
-                <div id="high-btn">High</div>
-                <div id="extreme-btn">Extreme</div>
-              </div>
               <div class="flex_column">
-                <div class="text">Or upload you own csv </div>
-                <input type="file" id="import" accept=".csv"></input>
-                <button >Generate trajectory</button>
-
+                <div class="text">Upload .prt file </div>
+                <input type="file" id="import" accept=".prt"></input>
+                <div class="flex_row">
+                  <button >Check weldability</button>
+                  <div class="loader" id="loader" style="display: none;"></div>
+                </div>
               </div>
             </form>
-          </div>
-        </div>
-        <div class="preview_container">
-          <label class="text">Preview</label>
-          <div class="preview" id="preview"></div>
-          <div class="wireframe">
-            <input type="checkbox" id="wireframe" name="wireframe" disabled/>
-            <label for="wireframe" id="wire_label">Wireframe</label>
-            <button>Export</button>
           </div>
         </div>
       </div>

@@ -3,25 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/Wall-E/order.css" />
-    <title>Wall-E</title>
+    <link rel="stylesheet" href="/WC/order.css" />
+    <title>WC</title>
   </head>
   <body>
     <div class="content">
       <div class="info">
         <h1>Order complete</h1>
+        <h3>
+          Dont close this page. When a designer has processed your order, <br />
+          you will get a download link below
+        </h3>
         <h2 id="message"></h2>
-        <a id="DFA" href="" download=""> Click to downlaod DFA file </a>
+        <a id="PRT" href="" download=""> Click to downlaod PRT file </a>
       </div>
     </div>
   </body>
   <script>
     var pageURL = window.location.search.substring(1);
     var name = pageURL;
-    var tag = document.getElementById("DFA");
+    var tag = document.getElementById("PRT");
     //url=maze3.csv
     console.log(name);
-    tag.href = "../DFA/products/" + name + ".dfa";
-    tag.download = name + ".dfa";
+    tag.href = "../Products/" + name + "/" + name + ".ini";
+    tag.download = name + ".prt";
+    setTimeout();
   </script>
 </html>

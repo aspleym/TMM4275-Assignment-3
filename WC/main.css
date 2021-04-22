@@ -75,6 +75,13 @@ h2 {
   margin-top: 20px;
 }
 
+.flex_row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
 .preview {
   display: flex;
   align-items: center;
@@ -211,4 +218,23 @@ button:hover {
 .btn-group div:hover {
   background-color: #008cff;
   color: #fff;
+}
+
+.loader {
+  margin: 5px;
+  border: 5px solid #ccc; /* Light grey */
+  border-top: 5px solid #008cff; /* Blue */
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
