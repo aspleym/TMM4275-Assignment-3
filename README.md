@@ -60,6 +60,9 @@ Everyone that contributed to the project used [Visual Studio Code](https://code.
 - [socketserver](https://docs.python.org/3/library/socketserver.html)
 - [Requests](https://requests.readthedocs.io/en/master/)
 - [os](https://docs.python.org/3/library/os.html)
+- [sys](https://docs.python.org/3/library/sys.html)
+- [inspect](https://docs.python.org/3/library/inspect.html)
+- [smtplib](https://docs.python.org/3/library/smtplib.html)
 
 ### Face detection Algorithm
 TODO: Write a explenation on how it works
