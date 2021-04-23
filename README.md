@@ -52,9 +52,9 @@ We therefor needed to remove some of our functionalities for this task, e.g. pre
 
 ### Architecture and Sequence diagrams:
 
-|                                                      Architecture                                                      |                                                  Generate trajectory/maze                                                   |                                                Import/Export                                                 |
-| :--------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------: |
-| ![](https://github.com/aspleym/TMM4275-Assignment-3/blob/main/images/Weldability%20Checker%20-%20UML-Architecture.png) | ![](https://github.com/aspleym/TMM4275-Assignment-2/blob/main/images/UML-Notes-Sequence%20generate%20maze%20and%20path.png) | ![](https://github.com/aspleym/TMM4275-Assignment-2/blob/main/images/UML-Notes-Import_Export%20Sequence.png) |
+|                                                       Architecture                                                        |                                            Customer Sequence                                            |                                            Designer Sequence                                            |
+| :-----------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------: |
+| ![](https://github.com/aspleym/TMM4275-Assignment-3/blob/main/images/%20Weldability%20Checker%20-%20UML-Architecture.png) | ![](https://github.com/aspleym/TMM4275-Assignment-3/blob/main/images/UML%20-%20Customer%20Sequence.png) | ![](https://github.com/aspleym/TMM4275-Assignment-3/blob/main/images/UML%20-%20Designer%20Sequence.png) |
 
 ### Changes from previous tasks:
 
@@ -180,9 +180,9 @@ The designer can now open Siemens NX, then open the function _Edit Journal_, and
 
 ## Examples
 
-You can try out a demo of this project [here!](https://wc.magnusolstad.no)
-
 ### Weldability check example (Templates)
+
+Every example is with welding bot dimensions of 50x50x50.
 
 |                                           1                                            |                                           2                                            |
 | :------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------: |
@@ -196,7 +196,15 @@ You can try out a demo of this project [here!](https://wc.magnusolstad.no)
 
 ## Roadmap
 
-TODO: Last task, what we wished we could have done.
+This is the last task in the course TMM4275 - Knowledge Based Engineering, Project. Here we have listed some functionality of we could have been implemented at a later time:
+
+- Automation for executing the weldability checker. Use command line to execute NX with the python script.
+- Host NX on a server, that could execute the files.
+- Read the prt. file, analyse each body in the file and generate a preview with [Three.js](https://threejs.org/).
+- Updated to use the welding trajectory from our [previous task](https://github.com/aspleym/TMM4275-Assignment-2) with _.prt_-files.
+- Created a better system for adding a "Company" email to the system.
+
+We have no further plans for this school project. Until there are changes to our roadmap, this project will have no maintenance of the code as of 23. April 2021.
 
 ## File structure
 

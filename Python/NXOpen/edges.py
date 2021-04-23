@@ -11,69 +11,15 @@ def main(part_path):
     theSession = NXOpen.Session.GetSession()
     workPart = theSession.Parts.Work
     displayPart = theSession.Parts.Display
-    # ----------------------------------------------
-    #   Menu: File->Open...
-    # ----------------------------------------------
-
-    # basePart1, partLoadStatus1 = theSession.Parts.OpenActiveDisplay(
-    #    "D:\\Dropbox\\Skole\\TMM4275 - Automatisering i ingeniørarbeid, prosjekt\\TMM4275-Assignment-3\\maze.prt", NXOpen.DisplayPartOption.AllowAdditional)
-
+   
     basePart1, partLoadStatus1 = theSession.Parts.OpenActiveDisplay(
         part_path, NXOpen.DisplayPartOption.AllowAdditional)
 
-    # basePart1, partLoadStatus1 = theSession.Parts.OpenActiveDisplay(
-    #    "C:\\Users\\Magnus\\Documents\\NX\\Models\\model15.prt", NXOpen.DisplayPartOption.AllowAdditional)
 
     workPart = theSession.Parts.Work  # maze
     displayPart = theSession.Parts.Display  # maze
     partLoadStatus1.Dispose()
 
-    # ----------------------------------------------
-    #   Menu: Tools->Journal->Stop Recording
-    # ----------------------------------------------
-
-
-def getFaces():
-    theSession = NXOpen.Session.GetSession()
-    # workPart = theSession.Parts.Work
-
-    for i, partObject in enumerate(theSession.Parts):
-        print("PART NUMBER: %i" % i)
-        print(partObject.JournalIdentifier)
-        if i == 0:
-            processPart(partObject)
-
-
-def processPart(partObject):
-    for bodyObject in partObject.Bodies:
-        # processBodyFaces(bodyObject)
-        if bodyObject != baseBlock.body:
-            try:
-                print("Mag")
-                print(bodyObject.JournalIdentifier)
-                baseBlock.intersect(bodyObject)
-                processEdge(bodyObject)
-            except:
-                print("Adr")
-
-
-def processBodyFaces(bodyObject):
-    for faceObject in bodyObject.GetFaces():
-        processFace(faceObject)
-
-
-def processFace(faceObject):
-    print("Face found.")
-    for edgeObject in faceObject.GetEdges():
-        processEdge(edgeObject)
-
-
-def processEdge(edgeObject):
-    # Printing vertices
-    v1 = edgeObject.GetVertices()[0]
-    v2 = edgeObject.GetVertices()[1]
-    print("Vertex 1:", v1)
-    print("Vertex 2:", v2)
 
 # Returns edges width z = 0 and removes duplicates
 def getPotentialEdges(faces):
@@ -245,43 +191,46 @@ def getWeldLines(partObject, weldBotSize):
             target1 = getFaceOfBotFromEdge(robot, edge, True) # Generates the 2d robot face
             robotInsideWall = False # Boolean to know if we might be inside a body
             for face in y_faces: # For each y-face, in ascending x order
-                if abs(face.GetEdges()[0].GetVertices()[0].X - x2) <= 0.01: # Checks if we get a second face that is located 
-                    if intersection(target1, face, True) and robotInsideWall:
-                        weldable = False
-                # TODO: Fix for when welding robot is bigger than edge
-                if face.GetEdges()[0].GetVertices()[0].X < x1:
+                if abs(face.GetEdges()[0].GetVertices()[0].X - x2) <= 0.01: # Checks if we get a face that is located exactly at the end of the edge
+                    if intersection(target1, face, True) and robotInsideWall: # If we also have a face that is located exatly at the start of the edge ->
+                        weldable = False # we know that wa are inside the owning body and therefor on the wrong side of the edge
+                
+                if face.GetEdges()[0].GetVertices()[0].X < x1: # Checks if we get a face before the edge has started
                     if intersection(target1, face, True):
                         print("<X intersecting: ", face.GetEdges())
-                        if face.GetBody() not in bodyHit:
+                        if face.GetBody() not in bodyHit: # Checks if it is a new face, or the back side of a previous face
                             bodyHit.append(face.GetBody())
                         else:
                             bodyHit.remove(face.GetBody())
-                if face.GetEdges()[0].GetVertices()[0].X > x1 and face.GetEdges()[0].GetVertices()[0].X < x2:
+                
+                if face.GetEdges()[0].GetVertices()[0].X > x1 and face.GetEdges()[0].GetVertices()[0].X < x2: # Checks if a face is intersecting the robot 
                     print("<X<: ", face.GetEdges()[0].GetVertices()[0].Y)
                     if intersection(target1, face, True):
                         weldable = False
-                if face.GetEdges()[0].GetVertices()[0].X > x1 and len(bodyHit):
+                
+                if face.GetEdges()[0].GetVertices()[0].X > x1 and len(bodyHit): # Checks if we have a face that is a back side of another face. If this face appears after the edge has stated, we have a body that intersects with the robot
                     if intersection(target1, face, True):
                         weldable = False
-                if abs(face.GetEdges()[0].GetVertices()[0].X - x1) <= 0.01:
+                
+                if abs(face.GetEdges()[0].GetVertices()[0].X - x1) <= 0.01: # Checks if we have a face that appears at the exact posistion where the edge starts. This might be becasue we are inside a body
                     if intersection(target1, face, True):
                         robotInsideWall = True
 
             if weldable:
-                if (edge.GetBody() == bottom):
+                if (edge.GetBody() == bottom): # Check if the weldable edge is in the bottom plate. If so, we don't color it
                     break
-                line = Line(edge.GetVertices()[
+                line = Line(edge.GetVertices()[ # Make a green line to indicate that it is weldable
                     0], edge.GetVertices()[1], weldable)
                 line.initForNX()
                 break
 
         if not weldable:
             if (edge.GetBody() != bottom):
-                line = Line(edge.GetVertices()[
+                line = Line(edge.GetVertices()[ # Make a red line to indicate that it is not weldable
                     0], edge.GetVertices()[1], weldable)
                 line.initForNX()
 
-    for edge in y_edges:
+    for edge in y_edges: # The same as above, but for y-edges and x-faces
         edge.Print()
         y1 = min(edge.GetVertices()[0].Y, edge.GetVertices()[1].Y)
         y2 = max(edge.GetVertices()[0].Y, edge.GetVertices()[1].Y)
@@ -292,10 +241,11 @@ def getWeldLines(partObject, weldBotSize):
             target1 = getFaceOfBotFromEdge(robot, edge, False)
             robotInsideWall = False
             for face in x_faces:
+                
                 if abs(face.GetEdges()[0].GetVertices()[0].Y - y2) <= 0.01:
                     if intersection(target1, face, False) and robotInsideWall:
                         weldable = False
-                # TODO: Fix for when welding robot is bigger than edge
+                
                 if face.GetEdges()[0].GetVertices()[0].Y < y1:
                     if intersection(target1, face, False):
                         print("<Y intersecting: ", face.GetEdges()
@@ -313,6 +263,7 @@ def getWeldLines(partObject, weldBotSize):
                 if face.GetEdges()[0].GetVertices()[0].Y > y1 and len(bodyHit):
                     if intersection(target1, face, False):
                         weldable = False
+                
                 if abs(face.GetEdges()[0].GetVertices()[0].Y - y1) <= 0.01:
                     if intersection(target1, face, False):
                         robotInsideWall = True
@@ -335,7 +286,7 @@ def getWeldLines(partObject, weldBotSize):
 
 # path C:\\, and [50, 50, 50]
 
-
+# Function that the designers pythonscript calls to run the algorithm
 def runWC(part_path, weldbot):
     main(part_path)
     theSession = NXOpen.Session.GetSession()
@@ -354,13 +305,3 @@ def runWC(part_path, weldbot):
             except error:
                 print("Could not save .prt file.", error)
 
-
-if __name__ == '__main__':
-    main()
-
-    theSession = NXOpen.Session.GetSession()
-    for i, partObject in enumerate(theSession.Parts):
-        print("PART NUMBER: %i" % i)
-        print(partObject.JournalIdentifier)
-        if i == 0:
-            getWeldLines(partObject, [50, 50, 50])
