@@ -79,6 +79,7 @@ Everyone that contributed to the project used [Visual Studio Code](https://code.
 - [sys](https://docs.python.org/3/library/sys.html)
 - [inspect](https://docs.python.org/3/library/inspect.html)
 - [smtplib](https://docs.python.org/3/library/smtplib.html)
+- [email.mime](https://docs.python.org/3/library/email.mime.html)
 
 ### Weld Check Algorithm
 
