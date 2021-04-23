@@ -52,9 +52,9 @@ We therefor needed to remove some of our functionalities for this task, e.g. pre
 
 ### Architecture and Sequence diagrams:
 
-|                                                       Architecture                                                        |                                            Customer Sequence                                            |                                            Designer Sequence                                            |
-| :-----------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------: |
-| ![](https://github.com/aspleym/TMM4275-Assignment-3/blob/main/images/%20Weldability%20Checker%20-%20UML-Architecture.png) | ![](https://github.com/aspleym/TMM4275-Assignment-3/blob/main/images/UML%20-%20Customer%20Sequence.png) | ![](https://github.com/aspleym/TMM4275-Assignment-3/blob/main/images/UML%20-%20Designer%20Sequence.png) |
+|                                                      Architecture                                                      |                                            Customer Sequence                                            |                                            Designer Sequence                                            |
+| :--------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------: |
+| ![](https://github.com/aspleym/TMM4275-Assignment-3/blob/main/images/Weldability%20Checker%20-%20UML-Architecture.png) | ![](https://github.com/aspleym/TMM4275-Assignment-3/blob/main/images/UML%20-%20Customer%20Sequence.png) | ![](https://github.com/aspleym/TMM4275-Assignment-3/blob/main/images/UML%20-%20Designer%20Sequence.png) |
 
 ### Changes from previous tasks:
 
