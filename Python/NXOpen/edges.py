@@ -75,7 +75,7 @@ def processEdge(edgeObject):
     print("Vertex 1:", v1)
     print("Vertex 2:", v2)
 
-
+# Returns edges width z = 0 and removes duplicates
 def getPotentialEdges(faces):
     potentialEdges = []
     for face in faces:
@@ -104,10 +104,8 @@ def sortEdges(edges):
             x_edges.append(edge)
     return x_edges, y_edges
 
-# Sort faces in x and y direction. Returns: [x-faces], [y-faces]
+# Sort faces in x and y direction. Returns: [x-faces], [y-faces], [z-faces]
 # Sort x and y arrays in acending order
-
-
 def sortFaces(faces):
     x_faces = []
     y_faces = []
@@ -147,7 +145,7 @@ def sortFaces(faces):
 # Intersection between to rectangles. Input: target = {X1: 1, X2: 1, Y1: 1, Y2: 1}
 # Returns boolean
 def intersection(target, face, xdirecton):
-    if (xdirecton):
+    if (xdirecton): # If we have a x-face
         fVertices = []
         for edge in face.GetEdges():
             v1 = edge.GetVertices()[0]
@@ -169,7 +167,6 @@ def intersection(target, face, xdirecton):
         y2 = min(max(fY1, fY2),
                  max(target["Y1"], target["Y2"]))
 
-        # NOT SURE HERE
         if x1 < x2 and y1 < y2:
             return True
         else:
@@ -196,17 +193,16 @@ def intersection(target, face, xdirecton):
         y2 = min(max(fY1, fY2),
                  max(target["Y1"], target["Y2"]))
 
-        # NOT SURE HERE
+
         if x1 < x2 and y1 < y2:
             return True
         else:
             return False
 
 # weldBotSize = [min-length, width, height]. Length will be along edge
-
+# Returns 2d face of robot
 
 def getFaceOfBotFromEdge(weldBotSize, edge, xdirection):
-    # Check if there is a wide enough gap to fit the robot
     face1 = {}
     if xdirection:
         face1["X1"] = edge.GetVertices()[0].Y
@@ -221,35 +217,35 @@ def getFaceOfBotFromEdge(weldBotSize, edge, xdirection):
 
     return face1
 
-
+# Algorith to find weld lines
 def getWeldLines(partObject, weldBotSize):
     allFaces = []
-    bottom = list(partObject.Bodies)[0]
-    for body in list(partObject.Bodies):
+    bottom = list(partObject.Bodies)[0] # Assumes the first sketch contains the base plate
+    for body in list(partObject.Bodies): # Loops through the other sketches
         print("BODY:")
         body.Print()
-        for feature in body.GetFeatures():
+        for feature in body.GetFeatures(): # Extracts all faces
             feature.Print()
         for face in body.GetFaces():
-            allFaces.append(face)
-    x_faces, y_faces, z_faces = sortFaces(allFaces)
-    potentialEdges = getPotentialEdges(allFaces)
-    x_edges, y_edges = sortEdges(potentialEdges)
-    quadrants = [[1, 1, 1], [1, -1, 1]]
+            allFaces.append(face) 
+    x_faces, y_faces, z_faces = sortFaces(allFaces) # Sorts faces
+    potentialEdges = getPotentialEdges(allFaces) # Gets potetial edges
+    x_edges, y_edges = sortEdges(potentialEdges) # Sorts edges
+    quadrants = [[1, 1, 1], [1, -1, 1]] # Quadrants we need to check
 
-    for edge in x_edges:
+    for edge in x_edges: # Loops through all x-edges
         edge.Print()
-        x1 = min(edge.GetVertices()[0].X, edge.GetVertices()[1].X)
-        x2 = max(edge.GetVertices()[0].X, edge.GetVertices()[1].X)
+        x1 = min(edge.GetVertices()[0].X, edge.GetVertices()[1].X) # Finds the first -
+        x2 = max(edge.GetVertices()[0].X, edge.GetVertices()[1].X) # and last vertices of the edge
 
-        for quadrant in quadrants:
-            weldable = True
-            bodyHit = []
-            robot = [val * quadrant[i] for i, val in enumerate(weldBotSize)]
-            target1 = getFaceOfBotFromEdge(robot, edge, True)
-            robotInsideWall = False
-            for face in y_faces:
-                if abs(face.GetEdges()[0].GetVertices()[0].X - x2) <= 0.01:
+        for quadrant in quadrants: # For each quadrant
+            weldable = True # Assuems we can weld. Will try to prove this wrong
+            bodyHit = [] # List to store if we hit a face before the edge has started
+            robot = [val * quadrant[i] for i, val in enumerate(weldBotSize)] # Get 2d coordinates for the robot face
+            target1 = getFaceOfBotFromEdge(robot, edge, True) # Generates the 2d robot face
+            robotInsideWall = False # Boolean to know if we might be inside a body
+            for face in y_faces: # For each y-face, in ascending x order
+                if abs(face.GetEdges()[0].GetVertices()[0].X - x2) <= 0.01: # Checks if we get a second face that is located 
                     if intersection(target1, face, True) and robotInsideWall:
                         weldable = False
                 # TODO: Fix for when welding robot is bigger than edge

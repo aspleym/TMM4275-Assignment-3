@@ -58,7 +58,7 @@ We therefor needed to remove some of our functionalities for this task, e.g. pre
 
 ### Changes from previous tasks:
 
-Becuase of the changes in our task goals, we have decided to remove the preview. To keep the preview, we would have to find a way to read a _.ptr_-file on the web server and present it with the 3D library, [Three.js](https://threejs.org/). The import system from [task 2](https://github.com/aspleym/TMM4275-Assignment-2) were reused in this task to upload the _.prt_-file to the web server. We did not see a need for the Fuseki server in this task, since the inputs from the user would be registered for their order. To communicate with the designer and customer, we have decided to create an email system.
+Becuase of the changes in our task goals, we have decided to remove the preview. To keep the preview, we would have to find a way to read a _.prt_-file on the web server and present it with the 3D library, [Three.js](https://threejs.org/). The import system from [task 2](https://github.com/aspleym/TMM4275-Assignment-2) were reused in this task to upload the _.prt_-file to the web server. We did not see a need for the Fuseki server in this task, since the inputs from the user would be registered for their order. To communicate with the designer and customer, we have decided to create an email system.
 
 Our selected parameters for this task:
 
@@ -168,7 +168,7 @@ HEIGHT: Height of welding robot.
 
 It is used by the system to configure the weldability checker that is generated (_.py_-file) in the same folder. The generated _.py_-file is pointing to the _Weld Check Algorithm_ and _.prt_-file, and can be executed in Siemens NX.
 
-The designer can now open Siemens NX, then open the function _Edit Journal_, and direct to the customer's generated _.py_-file. After the algorithm is executed, there should be colored lines for where the robot is able to weld. A green line indicates the welding line to be reachable by the robot, and a red line indicated that it is not reachable. The file will be saved, and an automatic email will be sent to the customer with a download link to the new _.prt_-file.
+The designer can now open Siemens NX, then open the function _Edit Journal_, and direct to the customer's generated _.py_-file. After the algorithm is executed, there should be colored lines for where the robot is able to weld. A green line indicates the welding line to be reachable by the robot, and a red line indicated that it is not reachable. To see these lines, you must hide the sketches in the part navigator tab.e The file will be saved, and an automatic email will be sent to the customer with a download link to the new _.prt_-file.
 
 ### Limitations for the _.prt_-file
 
