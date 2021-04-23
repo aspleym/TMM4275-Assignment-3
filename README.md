@@ -190,9 +190,9 @@ You can try out a demo of this project [here!](https://wc.magnusolstad.no)
 
 ### Emails
 
-|                                     Submitted                                     |                                      Completed                                       |                                      Designer                                      |
-| :-------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------: |
-| ![](https://github.com/aspleym/TMM4275-Assignment-2/blob/main/images/LowMaze.PNG) | ![](https://github.com/aspleym/TMM4275-Assignment-2/blob/main/images/MediumMaze.PNG) | ![](https://github.com/aspleym/TMM4275-Assignment-2/blob/main/images/HighMaze.PNG) |
+|                                      Submitted                                      |                                      Completed                                      |                                      Designer                                       |
+| :---------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------: |
+| ![](https://github.com/aspleym/TMM4275-Assignment-3/blob/main/images/Email%201.PNG) | ![](https://github.com/aspleym/TMM4275-Assignment-3/blob/main/images/Email%203.PNG) | ![](https://github.com/aspleym/TMM4275-Assignment-3/blob/main/images/Email%204.PNG) |
 
 ## Roadmap
 
@@ -203,55 +203,45 @@ TODO: Last task, what we wished we could have done.
 This is an overview of the file structure for this repository and a short explanation for some of the files.
 
 ```
-TMM4275-Assignment-2
+TMM4275-Assignment-3
 │   .gitignore                          A file to tell Github to ignore files.
 │   httpserver.py                       httpserver.py: Python script to execute a http server and request handler for the customer.
 │   LICENSE                             Standard license file to tell it's class of license.
-│   queries.txt                         A txt file with examples for some of the queries in SPARQL.
 │   README.md                           This file.
-│
-├───DFA                                 Templates for generating DFA-files.
-│   │   MazeAndTrajectoryTemplate.dfa
-│   │   MazeTemplate.dfa
-│   │   TrajectoryTemplate.dfa
-│   │
-│   └───products                        Where we store generated DFA-files.
-│
-├───Fuseki                              The folder for the Fuseki sever.
+│   template.prt                        A template file to test the system.
 │
 ├───images                              Images for the README.
 │
-├───Maze                                Maze description files. Templates as both csv and xlsx (Excel) files.
-│   │   Template.csv
-│   │   Template.xlsx
+├───Products
+│   │   wcTemplate.py                   Templates for generating .py-files.
 │   │
-│   └───Uploaded
-│           maze0.csv                   Predefined maze with low complexity
-│           maze1.csv                   Predefined maze with medium complexity
-│           maze2.csv                   Predefined maze with high complexity
-│           maze3.csv                   Predefined maze with extreme complexity
-│
-├───OWL
-│       shapes.owl                      The OWL model.
+│   └───template                        Example execution of template.prt
+│           template.ini
+│           template.prt
+│           template.py
 │
 ├───Python
-│   │   fusekiposter.py                 The Python file that contains functions to post and get trajectories from the Fuseki server.
-│   │   generateDFA.py                  Functions to generate DFA files of trajectory and maze.
-│   │   Maze.py                         Python file to create a Maze model. Contains pathfinding algorithm and helper functions
-│   │   MazeReader.py                   Python file to read or write csv-files from server and return it as an array
+│   │   generateNXFile.py               Functions to generate .py files of .ini and .prt files.
+│   │   mail.py                         Email functions.
+│   │
+│   ├───NXOpen
+│   │   │   edges.py                    Weld check algorithm.
+│   │   │
+│   │   ├───shapes                      Shapes that is supported in NXOpen, configured for this task.
+│   │   │   │   Block.py
+│   │   │   │   Cone.py
+│   │   │   │   Cylinder.py
+│   │   │   │   Line.py
+│   │   │   │   Sphere.py
 │
-└───Wall-E
+└───WC
     │   index.html                      This is the html file for our Homepage.
     │   main.css                        Styling for index.html.
     │   order.css                       Styling for the result page.
-    │   order.html                      The result page giving a download link for the DFA-file.
+    │   order.html                      The result page giving a download link for the updated .prt-file.
     │
     └───js
             index.js                    Multiple scripts used to handle events on the website.
-            OrbitControls.js            Camera library for Three.js.
-            three.js                    Three.js Library.
-            three.min.js
-            three.module.js
 ```
 
 ## Contributors

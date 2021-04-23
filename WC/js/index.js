@@ -9,8 +9,8 @@ var fileList = [];
 const lengthInput = document.getElementById("mLength");
 const widthInput = document.getElementById("mWidth");
 const heightInput = document.getElementById("mHeight");
-const emailInput = document.getElementById("emailInput");
-const loader = document.getElementById("loader");
+const emailInput = document.getElementById("emailInput"); // Email adress field
+const loader = document.getElementById("loader"); // Loading indicator
 
 lengthInput.addEventListener("change", () => {
   mLength = lengthInput.value;
@@ -35,7 +35,6 @@ fileInput.addEventListener("change", () => {
   console.log(fileList[0]);
 });
 
-// window.onload = () => {};
 // Catch when user submits
 
 window.onsubmit = (e) => {
@@ -44,7 +43,7 @@ window.onsubmit = (e) => {
 
   loader.style.display = "block";
   var request = new XMLHttpRequest(); // To send the .prt file
-  var request2 = new XMLHttpRequest(); // To send the infor for the .ini file
+  var request2 = new XMLHttpRequest(); // To send the info for the .ini file
 
   request.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
@@ -78,7 +77,7 @@ window.onsubmit = (e) => {
   request2.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       console.log("done with req2");
-      // Redirects to order
+      // Redirects to order page
       window.location.assign("WC/order.html?" + fileList[0].name.split(".")[0]);
     }
   };

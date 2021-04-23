@@ -25,32 +25,32 @@ class MyRequestHandler(http.server.SimpleHTTPRequestHandler):
         boundary = content_type.split("=")[1].encode()
         if boundary.decode('utf-8').lower() == 'utf-8': # We got the info as text, and will store it as a .ini file
             
-            # Gets the file name:
             content_len = int(self.headers['Content-Length'])
             post_body = self.rfile.read(content_len)
             post_string = post_body.decode('utf-8')
             parameters = post_string.split("&")
-            info = parameters[0]
+            info = parameters[0] # Retrives all the info from the request
             print("Info!")
             temp = info
             name = temp.removeprefix("NAME: ").split("\n")[0].split(".")[0]
             path = os.path.join(self.translate_path(self.path), f'Products/{name}/')
             configName = name + ".ini"
-            fn = os.path.join(path, configName)
+            fn = os.path.join(path, configName) # Makes a path for the .ini file
             print(info) # "filename \n email \n L \n W \n H"
             iniFile = open(fn, "w")
-            iniFile.write(info)
+            iniFile.write(info) # Writes the info to the .ini file
             iniFile.close()  
             
-            createNXFile(name, PASSWORD)
+            createNXFile(name, PASSWORD) # Generates a python file for the designer to run in NX
   
             temp = info
-            adress = temp.split("\n")[1].removeprefix("EMAIL: ")
-            subject = 'Your WC Design has been submitted'
+            adress = temp.split("\n")[1].removeprefix("EMAIL: ") # Email adress to the client
+            subject = 'Your WC Design has been submitted' 
             body = f"<p>Your design {name} is now submitted and is waiting for a designer to process it</p>"
-            sendMailToClient(adress, PASSWORD, subject, body)
+            sendMailToClient(adress, PASSWORD, subject, body) # Sends email to the client that the order is submitted
+            
             # The designer notification is disabled as we don't have an adress to sent it to
-            # sendMailToDesigner(adress, PASSWORD, subject, body)
+            # sendMailToDesigner(adressToDesigner, PASSWORD, name)
 
 
             
@@ -63,15 +63,15 @@ class MyRequestHandler(http.server.SimpleHTTPRequestHandler):
             #name = path.split('/')[-1]
 
         return http.server.SimpleHTTPRequestHandler.do_GET(self)
-    # Helper function to store the .prt file on the server
+    
 
-    def deal_post_data(self, boundary):
+    def deal_post_data(self, boundary): # Helper function to store the .prt file on the server
 
         remainbytes = int(self.headers['content-length'])
         line = self.rfile.readline()
         remainbytes -= len(line)
         if not boundary in line:
-            return (False, "Content NOT begin with boundary", "%s" % fn)
+            return (False, "Content NOT begin with boundary", "%s" % "none")
         line = self.rfile.readline()
         remainbytes -= len(line)
         fn = re.findall(

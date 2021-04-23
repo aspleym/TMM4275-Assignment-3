@@ -25,6 +25,6 @@ password = <<PASSWORD>>
 projectName = <<PROJECTNAME>>
 
 subject = 'Your WC Design has been successfully processed'
-body = f"<p>A designer has now finished processing your design {projectName}.\
+body = f"<p>A designer has now finished processing your design {projectName}. \
 You can download a .prt file containing weld lines by following this <a href=\"http://127.0.0.1:8080/Products/{projectName}/{projectName}.prt\">link.</a> </p>"
 sendMailToClient(adress, password, subject, body)
