@@ -24,6 +24,7 @@
 - [Usage](#usage)
 - [Examples](#examples)
 - [Roadmap](#roadmap)
+- [Conculsion](#conclusion)
 - [File Structure](#file-structure)
 - [Contributors](#contributors)
 - [License](#license)
@@ -209,6 +210,26 @@ This is the last task in the course TMM4275 - Knowledge Based Engineering, Proje
 - Make the Weld Check Algorithm capable of analyzing more complex shapes and handle more edge cases.
 
 We have no further plans for this school project. Until there are changes to our roadmap, this project will have no maintenance of the code as of 23. April 2021.
+
+## Conclusion
+
+Building a KBE solution is a complex task. The process of generalizing a problem, represent the knowledge and build a automated system supporting reuse and further development turned out to be quite difficult. In conclusion, building a KBE System have been a good learning experience, where we had to discover new solutions and improve on functionality we already had.
+
+The next subsections includes some thoughts for each task.
+
+### A1
+
+A1 was the most successful in terms of reuse and iteration. For this task, we iterated on what we had aleardy done in TMM4270 - Knowledge Based Engineering, Introduction. The iteration consisted of more functionality, and a higher quality code.
+
+### A2
+
+Our second task reused a lot of the systems already implemented in our first task. This allowed us to use more time one creating a good algorithm to solve our problem. We however ended up with creating our own way to represent a "Maze", when we should have read an _.prt_-file. We did not consider that a posibility at the time. To extend the system we implemented a module to import files to our web server. This was something we didn't know how to do before, and would be a reusable module for our other tasks at a later time.
+
+### A3
+
+After what we learned from A2, we had to completely rethink A3. This ment that reuse and iteration on previous assignments was difficult, except for the web server. We decided to use this opportunity to use the other technologies
+presented in this course. Implementing these technologies took a lot of time, and we had to remove some of the systems previously used, like fuseki and .dfa files due to the time constriants.
+This task showed us the benefits of making generalized and reuseable system, as it takes a lot of time to build them from the ground up.
 
 ## File structure
 
