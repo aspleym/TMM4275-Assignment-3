@@ -203,6 +203,7 @@ This is the last task in the course TMM4275 - Knowledge Based Engineering, Proje
 - Read the prt. file, analyse each body in the file and generate a preview with [Three.js](https://threejs.org/).
 - Updated to use the welding trajectory from our [previous task](https://github.com/aspleym/TMM4275-Assignment-2) with _.prt_-files.
 - Created a better system for adding a "Company" email to the system.
+- Make the Weld Check Algorithm capable of analyzing more complex shapes and handle more edge cases.
 
 We have no further plans for this school project. Until there are changes to our roadmap, this project will have no maintenance of the code as of 23. April 2021.
 
