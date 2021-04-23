@@ -145,7 +145,7 @@ python --version
 python httpserver.py
 ```
 
-- The web server will ask for the password to the "KBE company email account". The password can be found together with the assignment 3 submission on Blackboard. If you just hit the _enter_ key the web server will start without the email services. Type in the password and hit _enter_.
+- The web server will ask for the password to the "KBE company email account". Type in the password and hit _enter_. The password can be found together with the assignment 3 submission on Blackboard. If you just hit the _enter_ key the web server will start without the email services.
 
 - The web server should be available at: `127.0.0.1:8080` in a web browser.
 
@@ -251,7 +251,7 @@ TMM4275-Assignment-3
     │   order.html                      The result page giving a download link for the updated .prt-file.
     │
     └───js
-            index.js                    Multiple scripts used to handle events on the website.
+            index.js                    Script used to handle events on the website.
 ```
 
 ## Contributors
