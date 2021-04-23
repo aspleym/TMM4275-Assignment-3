@@ -184,9 +184,9 @@ You can try out a demo of this project [here!](https://wc.magnusolstad.no)
 
 ### Weldability check example (Templates)
 
-|                                        Low                                        |                                        Medium                                        |                                        High                                        |                                        Extreme                                        |
-| :-------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------: |
-| ![](https://github.com/aspleym/TMM4275-Assignment-2/blob/main/images/LowMaze.PNG) | ![](https://github.com/aspleym/TMM4275-Assignment-2/blob/main/images/MediumMaze.PNG) | ![](https://github.com/aspleym/TMM4275-Assignment-2/blob/main/images/HighMaze.PNG) | ![](https://github.com/aspleym/TMM4275-Assignment-2/blob/main/images/ExtremeMaze.PNG) |
+|                                           1                                            |                                           2                                            |
+| :------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------: |
+| ![](https://github.com/aspleym/TMM4275-Assignment-3/blob/main/images/Template%201.PNG) | ![](https://github.com/aspleym/TMM4275-Assignment-3/blob/main/images/Template%202.PNG) |
 
 ### Emails
 
