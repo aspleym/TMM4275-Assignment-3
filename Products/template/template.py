@@ -15,16 +15,16 @@ print("PARENT: ", parparent_dir)
 from Python.NXOpen.edges import runWC
 from Python.mail import *
 
-pathToPrtFile = <<PATH>>
+pathToPrtFile = "d:\Dropbox\Skole\TMM4275 - Automatisering i ingeniørarbeid, prosjekt\TMM4275-Assignment-3\Products/template/template.prt"
 
-runWC(pathToPrtFile, [<<BOTSIZE>>])
+runWC(pathToPrtFile, [50, 50, 50])
 
 
-adress = <<ADRESS>>
-password = <<PASSWORD>>
-projectName = <<PROJECTNAME>>
+adress = "aspleym@gmail.com"
+password = "KBErocks!"
+projectName = "template"
 
 subject = 'Your WC Design has been successfully processed'
 body = f"<p>A designer has now finished processing your design {projectName}.\
-You can download a .prt file containing weld lines by following this <a href=\"http://127.0.0.1:8080/Products/{projectName}/{projectName}.prt\">link.</a> </p>"
+You can download a .prt file containing weld lines by following this <a href=\"http://127.0.0.1:8080/Products/{projectName}/{projectName}.prt\">link.</a></p>"
 sendMailToClient(adress, password, subject, body)

@@ -3,7 +3,7 @@ import os
 # Name of project, not filename, e.g. maze
 
 
-def createNXFile(name):
+def createNXFile(name, password):
     script_dir = os.path.dirname(__file__)
     productsPath = "Products/"
     abs_file_path_template = os.path.join(
@@ -14,7 +14,6 @@ def createNXFile(name):
 
     f = open(abs_file_path_template, "r")
     txt = f.read()
-
     # .replace("\", "\\") IF NEEDED FOR PATHING IN WINDOWS
     txt = txt.replace("<<PATH>>", ("\""+prtPath+"\""), 1)
     f.close()
@@ -34,6 +33,11 @@ def createNXFile(name):
 
     txt = txt.replace("<<BOTSIZE>>", f'{LENGTH}, {WIDTH}, {HEIGHT}')
 
-    f = open(prtPath[:len(prtPath) - 3] + "py", "w")
+    txt = txt.replace("<<ADRESS>>", f'\"{EMAIL}\"')
+    txt = txt.replace("<<PASSWORD>>", f'\"{password}\"')
+    txt = txt.replace("<<PROJECTNAME>>", f'\"{NAME.split(".")[0]}\"')
+
+
+    f = open(prtPath[:len(prtPath) - 3] + "py", "w", encoding='utf-8')
     f.write(txt)
     f.close()

@@ -1,15 +1,9 @@
 from Python.generateNXFile import createNXFile
-from Python.Maze import Maze
-from Python.generateDFA import generateDFA
 from Python.mail import *
 import http.server
-import json
 import socketserver
 import os
 import re
-import time
-import math
-from Python.fusekiposter import *
 
 IP_NUMBER = '127.0.0.1'
 PORT_NUMBER = 8080
@@ -29,8 +23,8 @@ class MyRequestHandler(http.server.SimpleHTTPRequestHandler):
         if not content_type:
             return (False, "Content-Type header doesn't contain boundary")
         boundary = content_type.split("=")[1].encode()
-        if boundary.decode('utf-8').lower() == 'utf-8':
-            # We got one of the predefined mazes
+        if boundary.decode('utf-8').lower() == 'utf-8': # We got the info as text, and will store it as a .ini file
+            
             # Gets the file name:
             content_len = int(self.headers['Content-Length'])
             post_body = self.rfile.read(content_len)
@@ -48,16 +42,20 @@ class MyRequestHandler(http.server.SimpleHTTPRequestHandler):
             iniFile.write(info)
             iniFile.close()  
             
-            createNXFile(name)
+            createNXFile(name, PASSWORD)
   
             temp = info
             adress = temp.split("\n")[1].removeprefix("EMAIL: ")
-            sendMailToClient(adress, PASSWORD, name)
+            subject = 'Your WC Design has been submitted'
+            body = f"<p>Your design {name} is now submitted and is waiting for a designer to process it</p>"
+            sendMailToClient(adress, PASSWORD, subject, body)
+            # The designer notification is disabled as we don't have an adress to sent it to
+            # sendMailToDesigner(adress, PASSWORD, subject, body)
 
 
             
         else:
-            # We got a custom csv
+            # We got the .prt file
             # Stores the file on the server and returs the file name
             r, info, path = self.deal_post_data(boundary)
             print(info)
@@ -65,7 +63,7 @@ class MyRequestHandler(http.server.SimpleHTTPRequestHandler):
             #name = path.split('/')[-1]
 
         return http.server.SimpleHTTPRequestHandler.do_GET(self)
-    # Helper function to store the custom csv on the server
+    # Helper function to store the .prt file on the server
 
     def deal_post_data(self, boundary):
 

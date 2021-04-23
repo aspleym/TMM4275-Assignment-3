@@ -2,9 +2,7 @@
 # Journal created by andreilo on Mon Apr 12 13:22:45 2021 W. Europe Daylight Time
 from os import error
 from os.path import expanduser
-from Python.NXOpen.shapes.Block import Block
 from Python.NXOpen.shapes.Line import Line
-import math
 import NXOpen
 
 
@@ -344,7 +342,7 @@ def getWeldLines(partObject, weldBotSize):
 
 def runWC(part_path, weldbot):
     main(part_path)
-
+    theSession = NXOpen.Session.GetSession()
     for i, partObject in enumerate(theSession.Parts):
         print("PART NUMBER: %i" % i)
         print(partObject.JournalIdentifier)
@@ -353,10 +351,12 @@ def runWC(part_path, weldbot):
 
             try:
                 print("Saving .prt file.")
-                # partObject.Save()
+                
+                # To close file on save, change the second paramenter to: NXOpen.BasePartCloseAfterSave.ValueOf(0)
+                status = partObject.Save(NXOpen.BasePartSaveComponents.ValueOf(1), NXOpen.BasePartCloseAfterSave.ValueOf(0))
                 print("Success!")
-            except:
-                print("Could not save .prt file.")
+            except error:
+                print("Could not save .prt file.", error)
 
 
 if __name__ == '__main__':

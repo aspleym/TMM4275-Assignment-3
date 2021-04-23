@@ -16,7 +16,7 @@
 - [Sketch and diagrams](#sketch-and-diagrams)
 - [Built With](#built-with)
   - [Libraries](#libraries)
-  - [Face Detection Algorithm](#face-detection-algorithm)
+  - [Weld Check Algorithm](#weld-check-algorithm)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Download project](#download-project)
@@ -39,10 +39,10 @@ From what we could understand from our class lectures, we misunderstood our prev
 We did not implement a system that used _.prt_-files and [_NXOpen - Python_](https://docs.plm.automation.siemens.com/data_services/resources/nx/11/nx_api/custom/en_US/nxopen_python_ref/index.html).
 Instead we used a _.csv_-file to describe a maze structure, and created a _.dfa_-file that could be read in [Siemens NX](https://www.plm.automation.siemens.com/global/en/products/nx/).
 
-Originally we wanted to build upon [our previous task](https://github.com/aspleym/TMM4275-Assignment-2) to extend the system and finish some of our roadmap goals, but decided to show that we can use _NXOpen_ with _.prt_-files since it is one of _TMM4275_'s competence requirements.
+Originally we wanted to build upon [our previous task](https://github.com/aspleym/TMM4275-Assignment-2) to extend the system and finish some of our roadmap goals, but decided we would like to learn _NXOpen_ with _.prt_-files since it is one of _TMM4275_'s competence requirements (or learning outcomes).
 We therefor needed to remove some of our functionalities for this task, e.g. previews, some automation and Fuseki-server.
 
-## Sketch and diagrams
+## Sketches and diagrams
 
 ### UI sketches:
 
@@ -56,6 +56,16 @@ We therefor needed to remove some of our functionalities for this task, e.g. pre
 | :--------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------: |
 | ![](https://github.com/aspleym/TMM4275-Assignment-3/blob/main/images/Weldability%20Checker%20-%20UML-Architecture.png) | ![](https://github.com/aspleym/TMM4275-Assignment-2/blob/main/images/UML-Notes-Sequence%20generate%20maze%20and%20path.png) | ![](https://github.com/aspleym/TMM4275-Assignment-2/blob/main/images/UML-Notes-Import_Export%20Sequence.png) |
 
+### Changes from previous tasks:
+
+Becuase of the changes in our task goals, we have decided to remove the preview. To keep the preview, we would have to find a way to read a _.ptr_-file on the web server and present it with the 3D library, [Three.js](https://threejs.org/). The import system from [task 2](https://github.com/aspleym/TMM4275-Assignment-2) were reused in this task to upload the _.prt_-file to the web server. We did not see a need for the Fuseki server in this task, since the inputs from the user would be registered for their order. To communicate with the designer and customer, we have decided to create an email system.
+
+Our selected parameters for this task:
+
+- Welding bot dimensions (Length, Width, Height)
+- Email address
+- An uploaded _.prt_-file
+
 ## Built With
 
 Everyone that contributed to the project used [Visual Studio Code](https://code.visualstudio.com/) to develop this software. The next section has a list of libraries and applications that have been used in this project. The names are linked to one of the developers home page for the library. Most of the libraries are included in the latest version of Python.
@@ -65,15 +75,12 @@ Everyone that contributed to the project used [Visual Studio Code](https://code.
 - [NXOpen - Python](https://docs.plm.automation.siemens.com/data_services/resources/nx/11/nx_api/custom/en_US/nxopen_python_ref/index.html)
 - [http.server](https://docs.python.org/3/library/http.server.html)
 - [socketserver](https://docs.python.org/3/library/socketserver.html)
-- [Requests](https://requests.readthedocs.io/en/master/)
 - [os](https://docs.python.org/3/library/os.html)
 - [sys](https://docs.python.org/3/library/sys.html)
 - [inspect](https://docs.python.org/3/library/inspect.html)
 - [smtplib](https://docs.python.org/3/library/smtplib.html)
 
-### Weld check Algorithm
-
-TODO: Write a explenation on how it works, MAGNUUUUUUS
+### Weld Check Algorithm
 
 To find potetial weld edges we have decided to check the following criterias:
 
@@ -84,31 +91,27 @@ To find potetial weld edges we have decided to check the following criterias:
 #### The Algorithm
 
 The first body is assumed to be the base plate and is stored to be compared later. The faces and edges from the remaining bodies are stored in lists. Only edges on z = 0 are kept, and duplicates removed. It then sorts each face in three categories depending on which axis its parallel with. I.e., a face parallel with the x-axis is an x face. The faces are also sorted on its depth value. I.e., x faces are sorted in ascending y order.
-The algorithm then loops through every potential edge. It tests both sides of the edge which in a local coordinate system is the first and second quadrant. For each quadrant it makes a 2d face of the robot, and then loops through every face orthogonal to the edge, in ascending order with respect to the depth value. For each face, it performs two main checks. Is the face before, equal to, or between the limits of the edge, and is the face intersecting the robots face?
+The algorithm then loops through every potential edge. It tests both sides of the edge which in a local coordinate system is the first and second quadrant. For each quadrant it makes a 2d face of the robot, and then loops through every face orthogonal to the edge in ascending order with respect to the depth value. For each face, it performs two main checks. Is the face before, equal to, or between the limits of the edge, and is the face intersecting the robots face?
+
 If the first is true and it intersects the robots face, the algorithm knows a body is beginning and it needs to remember it. If another face appears before the limits of the edge, we know that this face closes of the first face and makes a body that is not intersecting with the edge.
+
 If a face appears between the limits of the edge, and intersects with the face of the robot, we know that we can’t weld this line.
+
 If two faces are exactly equal to the limits of the edge, and intersecting the face of the robot, we know that the robot must be inside the body that owns the edge. It can’t weld this side of the edge, and the algorithm moves on to check the quadrant on the other side of the edge.
-If a line passes the tests, it gets welded with a green line in NX. Otherwise, the line is colored red. If the edge is owned by the
-The test is performed on every y face for each x edges, and vice versa.
 
-Limitations:
+If a line passes the tests, it gets welded with a green line in NX. Otherwise, the line is colored red. If the edge is owned by the base plate the color is removed as it's unnecessary.
 
-- The baseplate must go from Z = 0 to negative Z values
-- The first sketch must contain the baseplate, and can't contain the rest of the model
-- The rest of the model must be in it's own sketch and have positive Z values
-- Only lines on Z = 0 can be a potential weld line
-- Every wall must be orthogonal to one of the main axies x, y, z
--
+For each x-edge the test above is performed for every y-face, and vice versa.
 
 ## Getting Started
 
 ### Prerequisites
 
-To run this project you would need to install [Python 3.9](https://www.python.org/) to run the website. To open a _.prt_-file and execute the _Face Detection Algorithm_, you would need [Siemens NX](https://www.plm.automation.siemens.com/global/en/products/nx/).
+To run this project you would need to install [Python 3.9](https://www.python.org/) to run the website. To open a _.prt_-file and execute the [_Weld Check Algorithm_](#weld-check-algorithm), you would need [Siemens NX](https://www.plm.automation.siemens.com/global/en/products/nx/).
 
 ### Download project
 
-This section will guide you to clone this git repository. Type the following lines in the terminal (for **_unix_** users), or Command Prompt (for **_windows_** users):
+This section will guide you to clone this git repository. Type the following lines in the Terminal (for **_unix_** users), or Command Prompt (for **_windows_** users):
 
 ```sh
 cd /to-your-desired-directory
@@ -141,19 +144,19 @@ python --version
 python httpserver.py
 ```
 
+- The web server will ask for the password to the "KBE company email account". The password can be found together with the assignment 3 submission on Blackboard. If you just hit the _enter_ key the web server will start without the email services. Type in the password and hit _enter_.
+
 - The web server should be available at: `127.0.0.1:8080` in a web browser.
 
 ## Usage
 
-TODO: Write how to use, from the sender, and for the designer. Run on NX, automatic email etc.
-
 **Customer:**  
-The customer is able to tell the designer their email address and welding gun's dimensions. The welding gun will be intepreted as a block to make the weldability check simpler. By pressing the button _Choose file_, the customer will open a window and can direct the system to upload a _.prt_-file. When the _order_ is successful, an confirmation email will be sent to the customer and a notification email will be sent to the designer.
+The customer is able to tell the designer their email address and welding gun's dimensions. The welding gun will be intepreted as a block to make the weldability check simpler. By pressing the button _Choose file_, the customer will open a window and can direct the system to upload a _.prt_-file. When the form is completed the customer can hit the _Check Weldability_ button. The page will start to upload the information and generate the emails. As this takes a couple of seconds, we added an loading indicator to inform the customer that the page is working in the background. When the order is successful, an confirmation email will be sent to the customer and a notification email will be sent to the designer. The customer will be redirected to a _order complete_ page. When the designer checked the _.prt_-file, a new email will be sent to the customer with a download link to the updated _.prt_-file. It is also possible to use the link in the _order complete_ page after the email is received from the desinger.
 
 **Designer:**  
 When the designer recieves a notification, they are able to find a folder with the order name inside the project directory's _Product_ folder. Inside the folder named after the uploaded _.prt_-file, there should be three files with the same name but different filename extension: _.prt_, _.ini_ and _.py_.
 
-The _.ini_-file contains information about the order in this format:
+The _.ini_-file contains information about the order and is in this format:
 
 ```ini
 NAME: Name of part file.
@@ -163,27 +166,33 @@ WIDTH: Width of welding robot.
 HEIGHT: Height of welding robot.
 ```
 
-It is used by the system to configure the weldability checker that is generated (_.py_-file) in the same folder. The generated _.py_-file is pointing to the _Face Detector Algorithm_ and _.prt_-file, and can be executed in Siemens NX.
+It is used by the system to configure the weldability checker that is generated (_.py_-file) in the same folder. The generated _.py_-file is pointing to the _Weld Check Algorithm_ and _.prt_-file, and can be executed in Siemens NX.
 
-The designer can now open Siemens NX, then open the function _Edit Journal_, and direct to the customer's generated _.py_-file. After the algorithm is executed, there should be colored lines for where the robot is able to weld. A green line indicates the welding line to be reachable for the robot, and a red line indicated that it is not reachable.
+The designer can now open Siemens NX, then open the function _Edit Journal_, and direct to the customer's generated _.py_-file. After the algorithm is executed, there should be colored lines for where the robot is able to weld. A green line indicates the welding line to be reachable by the robot, and a red line indicated that it is not reachable. The file will be saved, and an automatic email will be sent to the customer with a download link to the new _.prt_-file.
 
 ### Limitations for the _.prt_-file
 
-TODO: Rules for how the .prt - file should be for the algorithm to work.
+- The base plate must go from Z = 0 to negative Z values
+- The first sketch must contain the baseplate, and can't contain the rest of the model
+- The rest of the model must be in it's own sketch and have positive Z values
+- Only lines on Z = 0 can be a potential weld line
+- Every wall must be orthogonal to two of the main axies x, y, z
 
 ## Examples
 
 You can try out a demo of this project [here!](https://wc.magnusolstad.no)
 
-### Weldability check examples (Templates)
+### Weldability check example (Templates)
 
 |                                        Low                                        |                                        Medium                                        |                                        High                                        |                                        Extreme                                        |
 | :-------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------: |
 | ![](https://github.com/aspleym/TMM4275-Assignment-2/blob/main/images/LowMaze.PNG) | ![](https://github.com/aspleym/TMM4275-Assignment-2/blob/main/images/MediumMaze.PNG) | ![](https://github.com/aspleym/TMM4275-Assignment-2/blob/main/images/HighMaze.PNG) | ![](https://github.com/aspleym/TMM4275-Assignment-2/blob/main/images/ExtremeMaze.PNG) |
 
-### Overview of the "extreme" maze template
+### Emails
 
-![](https://github.com/aspleym/TMM4275-Assignment-2/blob/main/images/ExtremeMazeOverview.PNG)
+|                                     Submitted                                     |                                      Completed                                       |                                      Designer                                      |
+| :-------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------: |
+| ![](https://github.com/aspleym/TMM4275-Assignment-2/blob/main/images/LowMaze.PNG) | ![](https://github.com/aspleym/TMM4275-Assignment-2/blob/main/images/MediumMaze.PNG) | ![](https://github.com/aspleym/TMM4275-Assignment-2/blob/main/images/HighMaze.PNG) |
 
 ## Roadmap
 

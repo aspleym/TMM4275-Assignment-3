@@ -10,7 +10,7 @@ const lengthInput = document.getElementById("mLength");
 const widthInput = document.getElementById("mWidth");
 const heightInput = document.getElementById("mHeight");
 const emailInput = document.getElementById("emailInput");
-const loader = document.getElementById("loader")
+const loader = document.getElementById("loader");
 
 lengthInput.addEventListener("change", () => {
   mLength = lengthInput.value;
@@ -42,15 +42,15 @@ window.onsubmit = (e) => {
   e.preventDefault();
   console.log("Submited");
 
-  loader.style.display = "block"
-  var request = new XMLHttpRequest();
-  var request2 = new XMLHttpRequest();
+  loader.style.display = "block";
+  var request = new XMLHttpRequest(); // To send the .prt file
+  var request2 = new XMLHttpRequest(); // To send the infor for the .ini file
 
   request.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       console.log("done");
       if (fileList !== []) {
-        // OR if the user has uploaded a custom csv
+        // When .prt file is sent, send the info for the .ini file
         console.log("sending info");
         var info =
           "NAME: " +
@@ -72,15 +72,6 @@ window.onsubmit = (e) => {
         request2.setRequestHeader("Access-Control-Allow-Origin", "*");
         request2.send(info);
       }
-      /* Redirects to order
-      if (false) {
-        window.location.assign("WC/order.html?" + mazeName.split(".")[0]);
-      } else {
-        window.location.assign(
-          "WC/order.html?" + fileList[0].name.split(".")[0]
-        );
-      }
-      */
     }
   };
 
@@ -93,7 +84,7 @@ window.onsubmit = (e) => {
   };
 
   if (fileList !== []) {
-    // OR if the user has uploaded a custom csv
+    // First send the .prt file
     console.log("sending file");
     var formData = new FormData();
     formData.append("file", fileList[0]);

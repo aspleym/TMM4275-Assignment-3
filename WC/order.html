@@ -11,8 +11,10 @@
       <div class="info">
         <h1>Order complete</h1>
         <h3>
-          Dont close this page. When a designer has processed your order, <br />
-          you will get a download link below
+          Do not close this page. When a designer has processed your order,
+          <br />
+          you can use the download link below to get the .prt file with weld
+          lines.
         </h3>
         <h2 id="message"></h2>
         <a id="PRT" href="" download=""> Click to downlaod PRT file </a>
@@ -23,10 +25,7 @@
     var pageURL = window.location.search.substring(1);
     var name = pageURL;
     var tag = document.getElementById("PRT");
-    //url=maze3.csv
-    console.log(name);
-    tag.href = "../Products/" + name + "/" + name + ".ini";
+    tag.href = "../Products/" + name + "/" + name + ".prt";
     tag.download = name + ".prt";
-    setTimeout();
   </script>
 </html>

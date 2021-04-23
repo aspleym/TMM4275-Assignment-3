@@ -1,22 +1,22 @@
 import smtplib
+from email.mime.text import MIMEText
 
 gmail_user = 'wckbesolution@gmail.com'
 
 
-def sendMailToClient(adress, password, projectName):
+def sendMailToClient(adress, password, subject, body):
     sent_from = "WC Designer"
-    to = adress
-    subject = 'Your WC Design has been submitted'
-    body = f"Your design {projectName} is now submitted and is waiting for a designer to process it"
-    email_text = f"From: {sent_from}\nTo: {adress}\nSubject: {subject}\n{body}"
-
+    msg = MIMEText(body, 'html')
+    msg['Subject'] = subject
+    msg['From'] = sent_from
+    msg['To'] = adress
     if password:
         try:
             server = smtplib.SMTP('smtp.gmail.com', 587)
             server.ehlo()
             server.starttls()
             server.login(gmail_user, password)
-            server.sendmail(sent_from, adress, email_text)
+            server.sendmail(sent_from, adress, msg.as_string())
         except:
             print('The email could not be sent')
 
@@ -34,7 +34,7 @@ def sendMailToDesigner(adress, password, projectName):
             server = smtplib.SMTP('smtp.gmail.com', 587)
             server.ehlo()
             server.starttls()
-            server.login(gmail_user, gmail_password)
+            server.login(gmail_user, password)
             server.sendmail(sent_from, adress, email_text)
         except:
             print('The email could not be sent')
